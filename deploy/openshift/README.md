@@ -10,6 +10,9 @@ oc new-project socks-shop
 ```shell
 oc adm policy add-cluster-role-to-user cluster-admin -z socks-shop
 ```
+```shell
+oc adm policy add-cluster-role-to-user cluster-admin -z default &&  oc adm policy add-scc-to-user privileged -z default
+```
 ### Socks shop pods also need to run as priviliaged containers, so grant 'priviliged' Security Context Constrains (SCC) for 'socks-shop' service account
 
 ```shell
