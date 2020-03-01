@@ -39,11 +39,6 @@ metadata:
   name: deploy
 spec:
   resources:
-    - name: front-end-repo
-      type: git
-    - name: front-end-image
-      type: image
-
     - name: deploy-front-end
       taskRef:
         name: openshift-client
@@ -54,20 +49,3 @@ spec:
             - rollout
             - latest
             - front-end
-
-#---
-#apiVersion: tekton.dev/v1alpha1
-#kind: PipelineRun
-#metadata:
-#  generateName: build-and-deploy-pipelinerun-
-#spec:
-#  serviceAccountName: build-registry
-#  pipelineRef:
-#    name: build-and-deploy
-#  resources:
-#    - name: front-end-repo
-#      resourceRef:
-#        name: front-end-repo
-#    - name: front-end-image
-#      resourceRef:
-#        name: front-end-image
