@@ -68,6 +68,16 @@ oc expose service front-end
 
 ### Create the Tekton Pipeline
 
+For Dev environement :
+
+```shell
+oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/tekton-pipeline/TektonRunScript-DevEnv.yaml
+```
+
+- [more info on troubleshoot or right](./deploy/tekton-pipeline.md)
+
+
+
 
 ### Process to demo color change
 
