@@ -36,16 +36,23 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
+  namespace: socks-shop
   name: deploy
 spec:
   resources:
+    - name: front-end-repo
+      type: git
+    - name: front-end-image
+      type: image
     - name: deploy-front-end
-      taskRef:
-        name: openshift-client
-        kind: ClusterTask
+  tasks:
+    - name: deploy-front-end
       params:
         - name: ARGS
           value:
             - rollout
             - latest
             - front-end
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
