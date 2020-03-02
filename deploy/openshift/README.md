@@ -83,9 +83,9 @@ oc delete -f https://raw.githubusercontent.com/NicolasO/microservices-demo/maste
 
 
 
-####
-#### Now Deploy the Dev environement
-####
+
+# Now Deploy the Dev environement
+
 ### Create a dedicated project for socks shop then apply policy changes needed to run socks shop:
 
 For Production environement :
