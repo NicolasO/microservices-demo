@@ -227,7 +227,7 @@ metadata:
   name: orders-db
   labels:
     name: orders-db
-  namespace: socks-shop-dev-dev
+  namespace: socks-shop-dev
 spec:
   ports:
     # the port that this service should serve on
@@ -242,7 +242,7 @@ metadata:
   name: orders
   labels:
     name: orders
-  namespace: socks-shop-dev-dev
+  namespace: socks-shop-dev
 spec:
   replicas: 1
   selector:
@@ -279,7 +279,7 @@ metadata:
   name: orders
   labels:
     name: orders
-  namespace: socks-shop-dev-dev
+  namespace: socks-shop-dev
 spec:
   ports:
     # the port that this service should serve on
@@ -294,7 +294,7 @@ metadata:
   name: payment
   labels:
     name: payment
-  namespace: socks-shop-dev-dev
+  namespace: socks-shop-dev
 spec:
   replicas: 1
   selector:
@@ -319,7 +319,7 @@ metadata:
   name: payment
   labels:
     name: payment
-  namespace: socks-shop-dev-dev
+  namespace: socks-shop-dev
 spec:
   ports:
     # the port that this service should serve on
@@ -334,7 +334,7 @@ metadata:
   name: queue-master
   labels:
     name: queue-master
-  namespace: socks-shop-dev-dev
+  namespace: socks-shop-dev
 spec:
   replicas: 1
   selector:
@@ -361,7 +361,7 @@ metadata:
     name: queue-master
   annotations:
     prometheus.io/path: "/prometheus"
-  namespace: socks-shop-dev-dev
+  namespace: socks-shop-dev
 spec:
   ports:
     # the port that this service should serve on
@@ -376,7 +376,7 @@ metadata:
   name: rabbitmq
   labels:
     name: rabbitmq
-  namespace: socks-shop-dev-dev
+  namespace: socks-shop-dev
 spec:
   replicas: 1
   selector:
