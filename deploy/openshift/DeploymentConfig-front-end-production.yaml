@@ -1,0 +1,19 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: front-end
+  namespace: socks-shop
+spec:
+  selector:
+    app: front-end
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: front-end
+    spec:
+      containers:
+        - name: front-end
+          image: quay.io/nicolaso/front-end:latest
+          ports:
+            - containerPort: 8079
