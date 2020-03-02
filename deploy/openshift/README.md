@@ -1,10 +1,6 @@
 This deployment has been tested on OCP 4.3.
 
 
-
-
-
-
 # Now Deploy the Dev environement
 
 ### Create a dedicated project for socks shop then apply policy changes needed to run socks shop:
@@ -69,8 +65,11 @@ oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/maste
 ```shell
 oc expose service front-end
 ```
+
+### Create the Tekton Pipeline
+
+
 ### Process to demo color change
-go to devel branch
 
 Go and see the portal
 Please make your change in https://github.com/NicolasO/front-end/blob/master/public/css/style.blue.css
@@ -100,10 +99,7 @@ oc rollout latest dc/front-end
 
 ### to delete application in OpenShift using oc tools
 
-```shell
-oc delete project socks-shop-dev
-```
-OR
+
 ```shell
 oc delete -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/openshift/complete-demo.yaml
 ```
@@ -147,10 +143,7 @@ oc adm policy add-scc-to-user anyuid -z default
 ```
 ### Deploy application in OpenShift using oc tools
 
-```shell
-oc create -f complete-demo.yaml
-```
-OR
+
 ```shell
 oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/openshift/complete-demo-production.yaml
 ```

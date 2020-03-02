@@ -2,7 +2,7 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   annotations:
-    app.openshift.io/vcs-ref: devel
+    app.openshift.io/vcs-ref: master
     app.openshift.io/vcs-uri: 'https://github.com/NicolasO/front-end'
     app.openshift.io/connects-to: 'catalogue,payment,orders,carts,user,shipping'
   name: front-end
@@ -18,6 +18,6 @@ spec:
     spec:
       containers:
         - name: front-end
-          image: quay.io/nicolaso/front-end:devel
+          image: quay.io/nicolaso/front-end:latest
           ports:
             - containerPort: 8079
