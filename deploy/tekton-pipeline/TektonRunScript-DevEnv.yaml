@@ -5,7 +5,6 @@ metadata:
 secrets:
   - name: regcred
 
-
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -34,12 +33,45 @@ spec:
   params:
     - name: url
       value: quay.io/nicolaso/front-end:latest
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: unit-test
+spec:
+  steps:
+    - command:
+        - /bin/bash
+        - '-c'
+        - echo
+        - Unit test OK
+      image: registry.redhat.io/ubi7/ubi-minimal
+      name: ''
+      resources: {}
+---
+
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: functional-test
+spec:
+  steps:
+    - command:
+        - /bin/bash
+        - '-c'
+        - echo
+        - functional test ok
+      image: registry.redhat.io/ubi7/ubi-minimal
+      name: ''
+      resources: {}
+
 ---
 
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: build-and-deploy
+  name: build-and-deploy-to-dev
 spec:
   resources:
     - name: front-end-repo
@@ -48,7 +80,7 @@ spec:
       type: image
 
   tasks:
-    - name: build-front-end
+    - name: build
       taskRef:
         name: buildah
         kind: ClusterTask
@@ -63,7 +95,14 @@ spec:
         - name: TLSVERIFY
           value: "false"
 
-    - name: deploy-front-end
+    - name: unit-test
+      runAfter:
+        - build
+      taskRef:
+        kind: Task
+        name: unit-test
+
+    - name: deploy-to-dev
       taskRef:
         name: openshift-client
         kind: ClusterTask
@@ -75,7 +114,12 @@ spec:
             - rollout
             - latest
             - front-end
-
+    - name: functional-test
+      runAfter:
+        - deploy-to-dev
+      taskRef:
+        kind: Task
+        name: functional-test
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineRun

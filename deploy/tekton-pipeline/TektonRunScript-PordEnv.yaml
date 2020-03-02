@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pipeline
+secrets:
+  - name: regcred
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-registry
+secrets:
+  - name: regcred
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: unit-test
+spec:
+  steps:
+    - command:
+        - /bin/bash
+        - '-c'
+        - echo
+        - Unit test OK
+      image: registry.redhat.io/ubi7/ubi-minimal
+      name: ''
+      resources: {}
+---
+
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: functional-test
+spec:
+  steps:
+    - command:
+        - /bin/bash
+        - '-c'
+        - echo
+        - functional test ok
+      image: registry.redhat.io/ubi7/ubi-minimal
+      name: ''
+      resources: {}
+
+
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: front-end-repo
+spec:
+  type: git
+  params:
+    - name: url
+      value: https://github.com/NicolasO/front-end.git
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: front-end-image
+spec:
+  type: image
+  params:
+    - name: url
+      value: quay.io/nicolaso/front-end:latest
+---
+
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-deploy
+spec:
+  resources:
+    - name: front-end-repo
+      type: git
+    - name: front-end-image
+      type: image
+
+  tasks:
+
+    - name: deploy
+      taskRef:
+        name: openshift-client
+        kind: ClusterTask
+      params:
+        - name: ARGS
+          value:
+            - rollout
+            - latest
+            - front-end
+
+--
