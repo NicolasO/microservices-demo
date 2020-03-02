@@ -5,6 +5,8 @@ metadata:
   labels:
     name: carts-db
   namespace: socks-shop
+  labels:
+    app.kubernetes.io/part-of: carts
 spec:
   replicas: 1
   selector:
@@ -49,8 +51,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    app.openshift.io/connects-to: carts-db
   name: carts
   labels:
+    app.kubernetes.io/part-of: carts
     name: carts
   namespace: socks-shop
 spec:
@@ -103,6 +108,7 @@ kind: Deployment
 metadata:
   name: catalogue-db
   labels:
+    app.kubernetes.io/part-of: catalogue
     name: catalogue-db
   namespace: socks-shop
 spec:
@@ -150,8 +156,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    app.openshift.io/connects-to: catalogue-db
   name: catalogue
   labels:
+    app.kubernetes.io/part-of: catalogue
     name: catalogue
   namespace: socks-shop
 spec:
@@ -193,6 +202,7 @@ kind: Deployment
 metadata:
   name: orders-db
   labels:
+    app.kubernetes.io/part-of: orders
     name: orders-db
   namespace: socks-shop
 spec:
@@ -239,8 +249,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    app.openshift.io/connects-to: orders-db
   name: orders
   labels:
+    app.kubernetes.io/part-of: orders
     name: orders
   namespace: socks-shop
 spec:
@@ -293,6 +306,7 @@ kind: Deployment
 metadata:
   name: payment
   labels:
+    app.kubernetes.io/part-of: payment
     name: payment
   namespace: socks-shop
 spec:
@@ -333,6 +347,7 @@ kind: Deployment
 metadata:
   name: queue-master
   labels:
+    app.kubernetes.io/part-of: shipping
     name: queue-master
   namespace: socks-shop
 spec:
@@ -373,8 +388,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    app.openshift.io/connects-to: queue-master
   name: rabbitmq
   labels:
+    app.kubernetes.io/part-of: shipping
     name: rabbitmq
   namespace: socks-shop
 spec:
@@ -413,8 +431,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    app.openshift.io/connects-to: rabbitmq
   name: shipping
   labels:
+    app.kubernetes.io/part-of: shipping
     name: shipping
   namespace: socks-shop
 spec:
@@ -467,6 +488,7 @@ kind: Deployment
 metadata:
   name: user-db
   labels:
+    app.kubernetes.io/part-of: user
     name: user-db
   namespace: socks-shop
 spec:
@@ -513,8 +535,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    app.openshift.io/connects-to: user-db
   name: user
   labels:
+    app.kubernetes.io/part-of: user
     name: user
   namespace: socks-shop
 spec:

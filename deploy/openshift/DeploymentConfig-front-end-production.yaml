@@ -1,6 +1,10 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
+  annotations:
+    app.openshift.io/vcs-ref: master
+    app.openshift.io/vcs-uri: 'https://github.com/NicolasO/front-end'
+    app.openshift.io/connects-to: 'catalogue,payment,orders,carts,user,shipping'
   name: front-end
   namespace: socks-shop
 spec:

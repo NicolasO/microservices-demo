@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    app.openshift.io/connects-to: 'catalogue,payment,orders,carts,user,shipping'
   name: front-end
   namespace: socks-shop-dev
   lables:
