@@ -189,3 +189,29 @@ OR
 ```shell
 oc delete -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/openshift/complete-demo-production.yaml
 ```
+
+
+
+### Load test
+The load test packages a test script in a container for Locust that simulates user traffic to Sock Shop, please run it against the front-end service. The address and port of the frontend will be different and depend on which platform you've deployed to. See the notes for each deployment.
+
+For example, on the Docker (single-host with Weave) deployment, on Docker for Mac:
+
+docker run --net=host weaveworksdemos/load-test -h http://front-end-chaussettes-shop.apps.demo.sandbox536.opentlc.com/ -r 100 -c 2
+The syntax for running the load test container is:
+
+docker run --net=host weaveworksdemos/load-test -h $frontend-ip[:$port] -r 100 -c 2
+The help command provides more details about the parameters:
+
+$ docker run weaveworksdemos/load-test --help
+Usage:
+  docker run weaveworksdemos/load-test http://front-end-chaussettes-shop.apps.demo.sandbox536.opentlc.com/ OPTIONS
+
+Options:
+  -d  Delay before starting
+  -h  Target host url, e.g. localhost:80
+  -c  Number of clients (default 2)
+  -r  Number of requests (default 10)
+
+Description:
+  Runs a Locust load simulation against specified host.

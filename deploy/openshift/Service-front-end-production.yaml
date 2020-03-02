@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: front-end
   namespace: socks-shop
+  labels:
+    name: front-end
 spec:
   ports:
   - name: web
