@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: front-end
   namespace: socks-shop-dev
+  lables:
+    name: front-end
 spec:
   replicas: 1
   selector:
