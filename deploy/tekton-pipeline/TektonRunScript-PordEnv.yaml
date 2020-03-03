@@ -109,7 +109,7 @@ spec:
       resources:
         inputs:
           - name: image
-            resource: ui-image
+            resource: front-end-image
       params:
         - name: deployment
           value: "front-end"
