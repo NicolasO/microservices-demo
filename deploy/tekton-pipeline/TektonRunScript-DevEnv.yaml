@@ -73,6 +73,9 @@ kind: Pipeline
 metadata:
   name: build-and-deploy-to-dev
 spec:
+  params:
+    - name: IMAGE_NAME
+      type: string
   resources:
     - name: front-end-repo
       type: git
