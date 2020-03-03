@@ -44,8 +44,32 @@ spec:
       image: registry.redhat.io/ubi7/ubi-minimal
       name: ''
       resources: {}
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: update-deployment
+spec:
+  inputs:
+    resources:
+      - {type: image, name: image}
+    params:
+      - name: deployment
+        description: The name of the deployment patch the image
+        type: string
 
-
+  steps:
+    - name: patch
+      image: quay.io/openshift/origin-cli:latest
+      command: ["/bin/bash", "-c"]
+      args:
+        - |-
+          oc patch deployment $(inputs.params.deployment) --patch='{"spec":{"template":{"spec":{
+            "containers":[{
+              "name": "$(inputs.params.deployment)",
+              "image":"$(inputs.resources.image.url)"
+            }]
+          }}}}'
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
@@ -71,25 +95,21 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: build-and-deploy
+  name: deploy
 spec:
   resources:
     - name: front-end-repo
       type: git
     - name: front-end-image
       type: image
-
   tasks:
-
-    - name: deploy
+    - name: update
       taskRef:
-        name: openshift-client
-        kind: ClusterTask
+        name: update-deployment
+      resources:
+        inputs:
+          - name: image
+            resource: ui-image
       params:
-        - name: ARGS
-          value:
-            - rollout
-            - latest
-            - front-end
-
---
+        - name: deployment
+          value: "front-end"
