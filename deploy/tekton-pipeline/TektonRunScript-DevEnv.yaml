@@ -73,9 +73,6 @@ kind: Pipeline
 metadata:
   name: build-and-deploy-to-dev
 spec:
-  params:
-    - name: IMAGE_NAME
-      type: string
   resources:
     - name: front-end-repo
       type: git
@@ -123,19 +120,19 @@ spec:
       taskRef:
         kind: Task
         name: functional-test
----
-apiVersion: tekton.dev/v1alpha1
-kind: PipelineRun
-metadata:
-  generateName: build-and-deploy-pipelinerun-
-spec:
-  serviceAccountName: build-registry
-  pipelineRef:
-    name: build-and-deploy
-  resources:
-    - name: front-end-repo
-      resourceRef:
-        name: front-end-repo
-    - name: front-end-image
-      resourceRef:
-        name: front-end-image
+#---
+#apiVersion: tekton.dev/v1alpha1
+#kind: PipelineRun
+#metadata:
+#  generateName: build-and-deploy-pipelinerun-
+#spec:
+#  serviceAccountName: build-registry
+#  pipelineRef:
+#    name: build-and-deploy
+#  resources:
+#    - name: front-end-repo
+#      resourceRef:
+#        name: front-end-repo
+#    - name: front-end-image
+#      resourceRef:
+#        name: front-end-image
