@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: front-end-listener
+spec:
+  serviceAccountName: tekton-triggers-sa
+  triggers:
+  - binding:
+      name: front-end-pipelinebinding
+    template:
+      name: front-end-triggertemplate

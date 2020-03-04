@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: front-end-pipelinebinding
+spec:
+  params:
+  - name: gitrevision
+    value: $(body.head_commit.id)
+  - name: namespace
+    value: socks-shop-dev
+  - name: gitrepositoryurl
+    value: $(body.repository.url)
+  - name: gitrepositoryname
+    value: $(body.repository.name)
