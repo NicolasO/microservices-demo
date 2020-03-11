@@ -1,0 +1,75 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  creationTimestamp: '2020-03-11T11:22:08Z'
+  generation: 10
+  name: blue-green
+  namespace: socks-shop
+  resourceVersion: '6999210'
+  selfLink: /apis/tekton.dev/v1alpha1/namespaces/socks-shop/pipelines/blue-green
+  uid: 07de8930-907d-4a6e-83a5-42ccd309ef99
+spec:
+  params:
+    - name: APP_NAME
+      type: string
+    - name: IMAGE_NAME
+      type: string
+  resources:
+    - name: app-source
+      type: git
+    - name: app-image
+      type: image
+  tasks:
+    - name: deploy-deployment
+      params:
+        - name: ARGS
+          value:
+            - create
+            - deployment
+            - $(params.APP_NAME)
+            - '--image'
+            - $(params.IMAGE_NAME)
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: deploy-Service
+      params:
+        - name: ARGS
+          value:
+            - create
+            - service
+            - $(params.APP_NAME)
+            - '--tcp=80:8079'
+      runAfter:
+        - deploy-deployment
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: patch-Service
+      params:
+        - name: ARGS
+          value:
+            - patch
+            - service
+            - $(params.APP_NAME)
+            - '-p'
+            - '{"spec":{"to":{"name":"$(params.APP_NAME)"}}}'
+      runAfter:
+        - deploy-Service
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: patch-route
+      params:
+        - name: ARGS
+          value:
+            - patch
+            - route
+            - front-end
+            - '-p'
+            - '{"spec":{"to":{"name":"$(params.APP_NAME)"}}}'
+      runAfter:
+        - patch-Service
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
