@@ -72,7 +72,7 @@ Go to the menu and deploy the Operator
 
 ### Create the Tekton Pipeline
 
-- [to create the Pipeline go to](./deploy/tekton-pipeline/README.md)
+- [to create the Pipeline go to](/deploy/tekton-pipeline/README.md)
 
 For Dev environement :
 ```shell
