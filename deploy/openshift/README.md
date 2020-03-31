@@ -72,13 +72,14 @@ Go to the menu and deploy the Operator
 
 ### Create the Tekton Pipeline
 
-For Dev environement :
+- [to create the Pipeline go to](./deploy/tekton-pipeline/Readme.md)
 
+For Dev environement :
 ```shell
 oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/tekton-pipeline/TektonRunScript-DevEnv.yaml
 ```
 
-- [more info on troubleshoot or right](./deploy/tekton-pipeline.md)
+
 
 
 
