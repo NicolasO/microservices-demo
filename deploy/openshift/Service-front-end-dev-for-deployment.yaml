@@ -12,7 +12,7 @@ spec:
     protocol: TCP
     targetPort: 8079
   selector:
-    name: front-end
+    app: front-end
   sessionAffinity: None
   type: ClusterIP
 status:

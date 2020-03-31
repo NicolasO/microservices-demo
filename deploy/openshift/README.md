@@ -66,6 +66,10 @@ oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/maste
 oc expose service front-end
 ```
 
+### Install Operator :  OpenShift Pipelines Operator
+
+Go to the menu and deploy the Operator
+
 ### Create the Tekton Pipeline
 
 For Dev environement :
