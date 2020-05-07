@@ -167,12 +167,18 @@ oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/maste
 
 ### Deployment of the Front-end Micro Service :
 in the privous deploiment the front end service is not yet deployed. you have to deploy it :
+Deploy the Deployment Config or the Deployment
 
-First Deploy the Deployment Config
-
+DC :
 ```shell
 oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/openshift/DeploymentConfig-front-end-production.yaml
 ```
+
+Deployment:
+```shell
+oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/openshift/deployment-front-end-prod.yaml
+```
+
 
 Then Deploy the Service
 ```shell
