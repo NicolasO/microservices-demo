@@ -66,12 +66,17 @@ oc adm policy add-scc-to-user anyuid -z build-registry
 oc adm policy add-role-to-user edit system:serviceaccount:socks-shop:build-registry
 ```
 ### Deploy tkn pipeline
-
+to be validate 
 
 ```shell
 oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/tekton-pipeline/TektonRunScript.yaml
 ```
 
+### Deploy tkn for Production 
+
+```shell
+oc create -f https://raw.githubusercontent.com/NicolasO/microservices-demo/master/deploy/tekton-pipeline/Tekton-Deploy-only.yaml
+```
 
 ### Expose the Front end Service :
 
